@@ -1,4 +1,4 @@
-function statement(invoice, plays) {
+const statement = (invoice, plays) => {
   let totalAmount = 0;
   let volumeCredits = 0;
   let result = `Statement for ${invoice.customer}\n`;
@@ -42,7 +42,7 @@ function statement(invoice, plays) {
   result += `Amount owed is ${format(totalAmount / 100)}\n`;
   result += `You earned ${volumeCredits} credits\n`;
   return result;
-}
+};
 
 module.exports = {
   statement,
