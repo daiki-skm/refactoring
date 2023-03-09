@@ -1,14 +1,18 @@
 const path = require("path");
 const fsPromises = require("fs/promises");
 
-const jsonFile = ["/invoices.json", "/plays.json"];
 const filePath = path.resolve(__dirname, "./json");
+const jsonFile = ["invoices.json", "plays.json"];
 
 const main = async () => {
   try {
-    const data = await fsPromises.readFile(filePath + jsonFile[0]);
-    const invoices = JSON.parse(data);
-    console.log(invoices);
+    const promises = jsonFile.map((file) => {
+      return fsPromises.readFile(`${filePath}/${file}`);
+    });
+    const tmp = await Promise.all(promises);
+    for (const json of tmp) {
+      console.log(JSON.parse(json));
+    }
   } catch (err) {
     console.log(err);
   }
