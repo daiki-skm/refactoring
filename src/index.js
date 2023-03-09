@@ -9,10 +9,11 @@ const main = async () => {
     const promises = jsonFile.map((file) => {
       return fsPromises.readFile(`${filePath}/${file}`);
     });
-    const tmp = await Promise.all(promises);
-    for (const json of tmp) {
-      console.log(JSON.parse(json));
-    }
+    const jsons = await Promise.all(promises);
+    const data = jsons.map((json) => {
+      return JSON.parse(json);
+    });
+    console.log(data);
   } catch (err) {
     console.log(err);
   }
