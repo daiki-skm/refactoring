@@ -1,14 +1,17 @@
-const path = require("path");
-const fsPromises = require("fs/promises");
-const { statement } = require("./printing");
+import { fileURLToPath } from "url";
+import { dirname, resolve } from "path";
+import { readFile } from "fs/promises";
+import { statement } from "./printing.js";
 
-const filePath = path.resolve(__dirname, "./json");
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+const filePath = resolve(__dirname, "./json");
 const jsonFile = ["invoices.json", "plays.json"];
 
 const main = async () => {
   try {
     const promises = jsonFile.map((file) => {
-      return fsPromises.readFile(`${filePath}/${file}`);
+      return readFile(`${filePath}/${file}`);
     });
     const res = await Promise.all(promises);
     const [invoices, plays] = res.map((json) => {
