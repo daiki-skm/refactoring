@@ -1,8 +1,8 @@
 const path = require("path");
 const fsPromises = require("fs/promises");
 
-const jsonFile = ["invoices.json", "plays.json"];
-const filePath = path.resolve(__dirname, "./json/");
+const jsonFile = ["/invoices.json", "/plays.json"];
+const filePath = path.resolve(__dirname, "./json");
 
 const main = async () => {
   try {
