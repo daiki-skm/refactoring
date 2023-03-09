@@ -4,6 +4,7 @@
   "description": "",
   "main": "./src/printing.js",
   "scripts": {
+    "start": "node ./src/printing.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
