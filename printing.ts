@@ -20,7 +20,7 @@ export const statement = (invoice: Invoice, plays: Plays) => {
       case "tragedy":
         thisAmount = 40000;
         if (perf.audience > 30) {
-          thisAmount += 1000 * (perf.audience - 20);
+          thisAmount += 1000 * (perf.audience - 30);
         }
         break;
       case "comedy":
