@@ -2,7 +2,7 @@ export type Plays = {
   [key: string]: Performance;
 };
 
-export type Performance = {
+type Performance = {
   name: string;
   type: string;
 };

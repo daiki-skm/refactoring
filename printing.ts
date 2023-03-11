@@ -1,5 +1,5 @@
 import type { Invoice, Performance } from "./types/invoice.ts";
-import type { Plays, Performance as PlayPerformance } from "./types/plays.ts";
+import type { Plays } from "./types/plays.ts";
 
 export const statement = (invoice: Invoice, plays: Plays) => {
   let totalAmount = 0;
