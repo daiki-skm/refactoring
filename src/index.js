@@ -15,7 +15,7 @@ const main = async () => {
     });
     const res = await Promise.all(promises);
     const [invoices, plays] = res.map((json) => {
-      return JSON.parse(json);
+      return JSON.parse(json.toString());
     });
     const result = statement(invoices[0], plays);
     console.log(result);
