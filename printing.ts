@@ -32,7 +32,9 @@ export const statement = (invoice, plays) => {
     }
 
     volumeCredits += Math.max(perf.audience - 30, 0);
-    if ("comedy" === play.type) volumeCredits += Math.floor(perf.audience / 5);
+    if ("comedy" === play.type) {
+      volumeCredits += Math.floor(perf.audience / 5);
+    }
     result += `${play.name}: ${format(thisAmount / 100)} (${
       perf.audience
     } seats)\n`;
