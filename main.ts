@@ -1,10 +1,10 @@
 import { statement } from "./printing.ts";
 
 if (import.meta.main) {
-  const invoices = await Deno.readTextFile("./json/invoices.json");
-  const invoice = JSON.parse(invoices);
-  const plays = await Deno.readTextFile("./json/plays.json");
-  const play = JSON.parse(plays);
+  const invoiceJson = await Deno.readTextFile("./json/invoice.json");
+  const invoice = JSON.parse(invoiceJson);
+  const playJson = await Deno.readTextFile("./json/play.json");
+  const play = JSON.parse(playJson);
   const result = statement(invoice, play);
   console.log(result);
 }
