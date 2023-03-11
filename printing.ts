@@ -12,8 +12,12 @@ export const statement = (invoice: Invoice, plays: Plays) => {
     minimumFractionDigits: 2,
   }).format;
 
+  const playFor = (performance: Performance) => {
+    return plays[performance.playid];
+  };
+
   for (const perf of invoice.performances) {
-    const play = plays[perf.playid];
+    const play = playFor(perf);
     let thisAmount = amountFor(perf, play);
 
     volumeCredits += Math.max(perf.audience - 30, 0);
