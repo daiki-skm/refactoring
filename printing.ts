@@ -1,4 +1,4 @@
-export const statement = (invoice: any, plays: any) => {
+export const statement = (invoice, plays) => {
   let totalAmount = 0;
   let volumeCredits = 0;
   let result = `Statement for ${invoice.customer}\n`;
@@ -9,7 +9,7 @@ export const statement = (invoice: any, plays: any) => {
     minimumFractionDigits: 2,
   }).format;
 
-  for (let perf of invoice.performances) {
+  for (const perf of invoice.performances) {
     const play = plays[perf.playid];
     let thisAmount = 0;
 
