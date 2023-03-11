@@ -38,11 +38,17 @@ export const statement = (invoice: Invoice, plays: Plays) => {
     return plays[performance.playid];
   };
 
-  for (const perf of invoice.performances) {
-    volumeCredits += Math.max(perf.audience - 30, 0);
-    if ("comedy" === playFor(perf).type) {
-      volumeCredits += Math.floor(perf.audience / 5);
+  const volumeCreditsFor = (performance: Performance) => {
+    let result = 0;
+    result += Math.max(performance.audience - 30, 0);
+    if ("comedy" === playFor(performance).type) {
+      result += Math.floor(performance.audience / 5);
     }
+    return result;
+  };
+
+  for (const perf of invoice.performances) {
+    volumeCredits += volumeCreditsFor(perf);
     result += `${playFor(perf).name}: ${format(amountFor(perf) / 100)} (${
       perf.audience
     } seats)\n`;
