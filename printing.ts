@@ -1,7 +1,7 @@
 import type { Invoice } from "./types/invoice.ts";
-import type { Play } from "./types/play.ts";
+import type { Plays } from "./types/plays.ts";
 
-export const statement = (invoice: Invoice, plays: Play) => {
+export const statement = (invoice: Invoice, plays: Plays) => {
   let totalAmount = 0;
   let volumeCredits = 0;
   let result = `Statement for ${invoice.customer}\n`;

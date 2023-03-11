@@ -1,4 +1,4 @@
-export type Play = {
+export type Plays = {
   [key: string]: Performance;
 };
 
