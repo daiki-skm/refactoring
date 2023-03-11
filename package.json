@@ -2,12 +2,12 @@
   "name": "refactoring",
   "version": "0.0.1",
   "description": "",
-  "main": "src/index.ts",
+  "main": "dist/index.js",
   "scripts": {
     "start": "tsc & node --experimental-json-modules ./dist/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "type": "module",
+  "type": "commonjs",
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/daiki-skm/refactoring.git"
