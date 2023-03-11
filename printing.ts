@@ -6,14 +6,6 @@ export const statement = (invoice: Invoice, plays: Plays) => {
   let volumeCredits = 0;
   let result = `Statement for ${invoice.customer}\n`;
 
-  const format = (number: number) => {
-    return new Intl.NumberFormat("en-US", {
-      style: "currency",
-      currency: "USD",
-      minimumFractionDigits: 2,
-    }).format(number);
-  };
-
   const amountFor = (performance: Performance) => {
     let result = 0;
     switch (playFor(performance).type) {
@@ -47,6 +39,14 @@ export const statement = (invoice: Invoice, plays: Plays) => {
       result += Math.floor(performance.audience / 5);
     }
     return result;
+  };
+
+  const format = (number: number) => {
+    return new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
+      minimumFractionDigits: 2,
+    }).format(number);
   };
 
   for (const perf of invoice.performances) {
