@@ -3,7 +3,7 @@ export type Invoice = {
   performances: Performance[];
 };
 
-type Performance = {
+export type Performance = {
   playid: string;
   audience: number;
 };
