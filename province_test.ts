@@ -17,3 +17,23 @@ Deno.test("province change production", () => {
   assertEquals(asia.shortfall, -6);
   assertEquals(asia.profit, 292);
 });
+
+Deno.test("no producers shortfall", () => {
+  const noProducers = new Province({
+    name: "No producers",
+    producers: [],
+    demand: 30,
+    price: 20,
+  });
+  assertEquals(noProducers.shortfall, 30);
+});
+
+Deno.test("no producers profit", () => {
+  const noProducers = new Province({
+    name: "No producers",
+    producers: [],
+    demand: 30,
+    price: 20,
+  });
+  assertEquals(noProducers.profit, 0);
+});
