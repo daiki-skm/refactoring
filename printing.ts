@@ -19,10 +19,10 @@ export const statement = (invoice: Invoice, plays: Plays) => {
     customer: invoice.customer,
     performances: invoice.performances.map(enrichPerformance),
   };
-  return renderPlainText(statementData, plays);
+  return renderPlainText(statementData);
 };
 
-const renderPlainText = (data: StatementData, plays: Plays) => {
+const renderPlainText = (data: StatementData) => {
   const amountFor = (performance: Performance) => {
     let result = 0;
     switch (performance.play.type) {
