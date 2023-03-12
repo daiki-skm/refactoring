@@ -11,7 +11,7 @@ class PerformanceCalculator {
     this.#play = play;
   }
 
-  getPlay() {
+  get play() {
     return this.#play;
   }
 }
@@ -23,7 +23,7 @@ export const createStatementData = (invoice: Invoice, plays: Plays) => {
       playFor(performance)
     );
     const result = Object.assign({}, performance);
-    result.play = calculator.getPlay();
+    result.play = calculator.play;
     result.amount = amountFor(result);
     result.volumeCredits = volumeCreditsFor(result);
     return result;
