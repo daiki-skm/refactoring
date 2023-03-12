@@ -8,14 +8,6 @@ export const statement = (invoice: Invoice, plays: Plays) => {
 };
 
 const renderPlainText = (data: StatementData) => {
-  const usd = (number: number) => {
-    return new Intl.NumberFormat("en-US", {
-      style: "currency",
-      currency: "USD",
-      minimumFractionDigits: 2,
-    }).format(number / 100);
-  };
-
   let result = `Statement for ${data.customer}\n`;
   for (const performance of data.performances) {
     result += `${performance.play.name}: ${usd(performance.amount)} (${
@@ -26,4 +18,32 @@ const renderPlainText = (data: StatementData) => {
   result += `Amount owed is ${usd(data.totalAmount)}\n`;
   result += `You earned ${data.totalVolumeCredits} credits\n`;
   return result;
+};
+
+const htmlStatement = (invoice: Invoice, plays: Plays) => {
+  return renderHtml(createStatementData(invoice, plays));
+};
+
+const renderHtml = (data: StatementData) => {
+  let result = `<h1>Statement for ${data.customer}</h1>\n`;
+  result += "<table>\n";
+  result += "<tr><th>play</th><th>seats</th><th>cost</th></tr>";
+  for (const performance of data.performances) {
+    result += `<tr><td>${performance.play.name}</td><td>${
+      performance.audience
+    }</td><td>${usd(performance.amount)}</td></tr>`;
+  }
+  result += "</table>";
+
+  result += `<p>Amount owed is <em>${usd(data.totalAmount)}</em></p>\n`;
+  result += `<p>You earned <em>${data.totalVolumeCredits}</em> credits</p>\n`;
+  return result;
+};
+
+const usd = (number: number) => {
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    minimumFractionDigits: 2,
+  }).format(number / 100);
 };

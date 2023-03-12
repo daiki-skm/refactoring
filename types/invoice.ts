@@ -11,6 +11,4 @@ export type Performance = {
   play: PlayPerformance;
   amount: number;
   volumeCredits: number;
-  totalAmount: number;
-  totalVolumeCredits: number;
 };

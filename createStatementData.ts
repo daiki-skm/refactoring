@@ -47,19 +47,11 @@ export const createStatementData = (invoice: Invoice, plays: Plays) => {
   };
 
   const totalVolumeCredits = (performances: Performance[]) => {
-    let result = 0;
-    for (const performance of performances) {
-      result += performance.volumeCredits;
-    }
-    return result;
+    return performances.reduce((total, p) => total + p.volumeCredits, 0);
   };
 
   const totalAmount = (performances: Performance[]) => {
-    let result = 0;
-    for (const performance of performances) {
-      result += performance.amount;
-    }
-    return result;
+    return performances.reduce((total, p) => total + p.amount, 0);
   };
 
   const incompleteStatementData = {
