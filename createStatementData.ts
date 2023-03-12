@@ -2,8 +2,17 @@ import type { Invoice, Performance } from "./types/invoice.ts";
 import type { Plays } from "./types/plays.ts";
 import type { StatementData } from "./types/statement.ts";
 
+class PerformanceCalculator {
+  #performance: Performance;
+
+  constructor(performance: Performance) {
+    this.#performance = performance;
+  }
+}
+
 export const createStatementData = (invoice: Invoice, plays: Plays) => {
   const enrichPerformance = (performance: Performance) => {
+    const calculator = new PerformanceCalculator(performance);
     const result = Object.assign({}, performance);
     result.play = playFor(result);
     result.amount = amountFor(result);
