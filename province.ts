@@ -35,7 +35,6 @@ class Province {
   get totalProduction() {
     return this.#totalProduction;
   }
-
   set totalProduction(arg) {
     this.#totalProduction = arg;
   }
@@ -43,7 +42,6 @@ class Province {
   get demand() {
     return this.#demand;
   }
-
   set demand(arg) {
     this.#demand = arg;
   }
@@ -51,9 +49,12 @@ class Province {
   get price() {
     return this.#price;
   }
-
   set price(arg) {
     this.#price = arg;
+  }
+
+  get shortfall() {
+    return this.#demand - this.#totalProduction;
   }
 }
 
@@ -77,7 +78,6 @@ class Producer {
   get cost() {
     return this.#cost;
   }
-
   set cost(arg) {
     this.#cost = arg;
   }
@@ -85,7 +85,6 @@ class Producer {
   get production() {
     return this.#production;
   }
-
   set production(amount) {
     const newProduction = Number.isNaN(amount) ? 0 : amount;
     this.#province.totalProduction += newProduction - this.#production;
