@@ -53,16 +53,22 @@ export const statement = (invoice: Invoice, plays: Plays) => {
     return result;
   };
 
-  let totalAmount = 0;
+  const totalAmount = () => {
+    let result = 0;
+    for (const perf of invoice.performances) {
+      result += amountFor(perf);
+    }
+    return result;
+  };
+
   let result = `Statement for ${invoice.customer}\n`;
   for (const perf of invoice.performances) {
     result += `${playFor(perf).name}: ${usd(amountFor(perf))} (${
       perf.audience
     } seats)\n`;
-    totalAmount += amountFor(perf);
   }
 
-  result += `Amount owed is ${usd(totalAmount)}\n`;
+  result += `Amount owed is ${usd(totalAmount())}\n`;
   result += `You earned ${totalVolumeCredits()} credits\n`;
   return result;
 };
