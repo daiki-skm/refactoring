@@ -3,11 +3,11 @@ import type { Plays } from "./types/plays.ts";
 import type { StatementData } from "./types/statement.ts";
 import { createStatementData } from "./createStatementData.ts";
 
-export const statement = (invoice: Invoice, plays: Plays) => {
+export const statement = (invoice: Invoice, plays: Plays): string => {
   return renderPlainText(createStatementData(invoice, plays));
 };
 
-const renderPlainText = (data: StatementData) => {
+const renderPlainText = (data: StatementData): string => {
   let result = `Statement for ${data.customer}\n`;
   for (const performance of data.performances) {
     result += `${performance.play.name}: ${usd(performance.amount)} (${
@@ -20,11 +20,11 @@ const renderPlainText = (data: StatementData) => {
   return result;
 };
 
-const htmlStatement = (invoice: Invoice, plays: Plays) => {
+const htmlStatement = (invoice: Invoice, plays: Plays): string => {
   return renderHtml(createStatementData(invoice, plays));
 };
 
-const renderHtml = (data: StatementData) => {
+const renderHtml = (data: StatementData): string => {
   let result = `<h1>Statement for ${data.customer}</h1>\n`;
   result += "<table>\n";
   result += "<tr><th>play</th><th>seats</th><th>cost</th></tr>";
@@ -40,7 +40,7 @@ const renderHtml = (data: StatementData) => {
   return result;
 };
 
-const usd = (number: number) => {
+const usd = (number: number): string => {
   return new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: "USD",
