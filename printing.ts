@@ -9,14 +9,10 @@ export const statement = (invoice: Invoice, plays: Plays) => {
     customer: invoice.customer,
     performances: invoice.performances,
   };
-  return renderPlainText(statementData, invoice, plays);
+  return renderPlainText(statementData, plays);
 };
 
-const renderPlainText = (
-  data: StatementData,
-  invoice: Invoice,
-  plays: Plays
-) => {
+const renderPlainText = (data: StatementData, plays: Plays) => {
   const amountFor = (performance: Performance) => {
     let result = 0;
     switch (playFor(performance).type) {
@@ -62,7 +58,7 @@ const renderPlainText = (
 
   const totalVolumeCredits = () => {
     let result = 0;
-    for (const perf of invoice.performances) {
+    for (const perf of data.performances) {
       result += volumeCreditsFor(perf);
     }
     return result;
@@ -70,7 +66,7 @@ const renderPlainText = (
 
   const totalAmount = () => {
     let result = 0;
-    for (const perf of invoice.performances) {
+    for (const perf of data.performances) {
       result += amountFor(perf);
     }
     return result;
