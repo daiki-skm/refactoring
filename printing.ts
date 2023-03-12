@@ -2,10 +2,6 @@ import type { Invoice, Performance } from "./types/invoice.ts";
 import type { Plays } from "./types/plays.ts";
 
 export const statement = (invoice: Invoice, plays: Plays) => {
-  let totalAmount = 0;
-  let volumeCredits = 0;
-  let result = `Statement for ${invoice.customer}\n`;
-
   const amountFor = (performance: Performance) => {
     let result = 0;
     switch (playFor(performance).type) {
@@ -48,6 +44,10 @@ export const statement = (invoice: Invoice, plays: Plays) => {
       minimumFractionDigits: 2,
     }).format(number / 100);
   };
+
+  let totalAmount = 0;
+  let volumeCredits = 0;
+  let result = `Statement for ${invoice.customer}\n`;
 
   for (const perf of invoice.performances) {
     volumeCredits += volumeCreditsFor(perf);
