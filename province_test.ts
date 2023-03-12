@@ -37,3 +37,17 @@ Deno.test("no producers profit", () => {
   });
   assertEquals(noProducers.profit, 0);
 });
+
+Deno.test("province zero demand", () => {
+  const asia = new Province(sampleProvinceData());
+  asia.demand = 0;
+  assertEquals(asia.shortfall, -25);
+  assertEquals(asia.profit, 0);
+});
+
+Deno.test("province zero demand", () => {
+  const asia = new Province(sampleProvinceData());
+  asia.demand = -1;
+  assertEquals(asia.shortfall, -26);
+  assertEquals(asia.profit, -10);
+});
