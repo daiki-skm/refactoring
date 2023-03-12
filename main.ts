@@ -1,4 +1,4 @@
-import { statement } from "./printing.ts";
+import { statement } from "./statement.ts";
 import type { Invoice } from "./types/invoice.ts";
 import type { Plays } from "./types/plays.ts";
 

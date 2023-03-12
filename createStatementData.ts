@@ -66,12 +66,12 @@ export const createStatementData = (invoice: Invoice, plays: Plays) => {
     customer: invoice.customer,
     performances: invoice.performances.map(enrichPerformance),
   };
-  const statementData: StatementData = {
+  const result: StatementData = {
     ...incompleteStatementData,
     totalAmount: totalAmount(incompleteStatementData.performances),
     totalVolumeCredits: totalVolumeCredits(
       incompleteStatementData.performances
     ),
   };
-  return statementData;
+  return result;
 };
