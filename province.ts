@@ -1,16 +1,11 @@
-class Province {
+export class Province {
   #name: string;
   #producers: Producer[];
   #totalProduction: number;
   #demand: number;
   #price: number;
 
-  constructor(doc: {
-    name: string;
-    demand: number;
-    price: number;
-    producers: Producer[];
-  }) {
+  constructor(doc: TypeProvince) {
     this.#name = doc.name;
     this.#producers = [];
     this.#totalProduction = 0;
@@ -117,7 +112,18 @@ class Producer {
   }
 }
 
-const sampleProvinceData = () => {
+export type TypeProvince = {
+  name: string;
+  producers: {
+    name: string;
+    cost: number;
+    production: number;
+  }[];
+  demand: number;
+  price: number;
+};
+
+export const sampleProvinceData = (): TypeProvince => {
   return {
     name: "Asia",
     producers: [
