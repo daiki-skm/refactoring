@@ -8,6 +8,10 @@ type StatementData = {
 };
 
 export const statement = (invoice: Invoice, plays: Plays) => {
+  return renderPlainText(createStatementData(invoice, plays));
+};
+
+const createStatementData = (invoice: Invoice, plays: Plays) => {
   const enrichPerformance = (performance: Performance) => {
     const result = Object.assign({}, performance);
     result.play = playFor(result);
@@ -78,7 +82,7 @@ export const statement = (invoice: Invoice, plays: Plays) => {
       incompleteStatementData.performances
     ),
   };
-  return renderPlainText(statementData);
+  return statementData;
 };
 
 const renderPlainText = (data: StatementData) => {
