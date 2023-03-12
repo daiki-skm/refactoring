@@ -2,6 +2,9 @@ import type { Invoice, Performance } from "./types/invoice.ts";
 import type { Plays } from "./types/plays.ts";
 type StatementData = {
   [P in keyof Invoice]: Invoice[P];
+} & {
+  totalAmount: number;
+  totalVolumeCredits: number;
 };
 
 export const statement = (invoice: Invoice, plays: Plays) => {
@@ -48,9 +51,32 @@ export const statement = (invoice: Invoice, plays: Plays) => {
     return result;
   };
 
-  const statementData: StatementData = {
+  const totalVolumeCredits = (performances: Performance[]) => {
+    let result = 0;
+    for (const performance of performances) {
+      result += performance.volumeCredits;
+    }
+    return result;
+  };
+
+  const totalAmount = (performances: Performance[]) => {
+    let result = 0;
+    for (const performance of performances) {
+      result += performance.amount;
+    }
+    return result;
+  };
+
+  const incompleteStatementData = {
     customer: invoice.customer,
     performances: invoice.performances.map(enrichPerformance),
+  };
+  const statementData = {
+    ...incompleteStatementData,
+    totalAmount: totalAmount(incompleteStatementData.performances),
+    totalVolumeCredits: totalVolumeCredits(
+      incompleteStatementData.performances
+    ),
   };
   return renderPlainText(statementData);
 };
@@ -64,22 +90,6 @@ const renderPlainText = (data: StatementData) => {
     }).format(number / 100);
   };
 
-  const totalVolumeCredits = () => {
-    let result = 0;
-    for (const perf of data.performances) {
-      result += perf.volumeCredits;
-    }
-    return result;
-  };
-
-  const totalAmount = () => {
-    let result = 0;
-    for (const perf of data.performances) {
-      result += perf.amount;
-    }
-    return result;
-  };
-
   let result = `Statement for ${data.customer}\n`;
   for (const perf of data.performances) {
     result += `${perf.play.name}: ${usd(perf.amount)} (${
@@ -87,7 +97,7 @@ const renderPlainText = (data: StatementData) => {
     } seats)\n`;
   }
 
-  result += `Amount owed is ${usd(totalAmount())}\n`;
-  result += `You earned ${totalVolumeCredits()} credits\n`;
+  result += `Amount owed is ${usd(data.totalAmount)}\n`;
+  result += `You earned ${data.totalVolumeCredits} credits\n`;
   return result;
 };
