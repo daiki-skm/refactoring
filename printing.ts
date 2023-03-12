@@ -1,11 +1,22 @@
 import type { Invoice, Performance } from "./types/invoice.ts";
 import type { Plays } from "./types/plays.ts";
-
-export const statement = (invoice: Invoice, plays: Plays) => {
-  return renderPlainText(invoice, plays);
+type StatementData = {
+  [P in keyof Invoice]: Invoice[P];
 };
 
-const renderPlainText = (invoice: Invoice, plays: Plays) => {
+export const statement = (invoice: Invoice, plays: Plays) => {
+  const statementData: StatementData = {
+    customer: invoice.customer,
+    performances: invoice.performances,
+  };
+  return renderPlainText(statementData, invoice, plays);
+};
+
+const renderPlainText = (
+  data: StatementData,
+  invoice: Invoice,
+  plays: Plays
+) => {
   const amountFor = (performance: Performance) => {
     let result = 0;
     switch (playFor(performance).type) {
@@ -65,8 +76,8 @@ const renderPlainText = (invoice: Invoice, plays: Plays) => {
     return result;
   };
 
-  let result = `Statement for ${invoice.customer}\n`;
-  for (const perf of invoice.performances) {
+  let result = `Statement for ${data.customer}\n`;
+  for (const perf of data.performances) {
     result += `${playFor(perf).name}: ${usd(amountFor(perf))} (${
       perf.audience
     } seats)\n`;
