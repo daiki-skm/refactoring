@@ -14,6 +14,28 @@ class PerformanceCalculator {
   get play() {
     return this.#play;
   }
+
+  get amount() {
+    let result = 0;
+    switch (this.#play.type) {
+      case "tragedy":
+        result = 40000;
+        if (this.#performance.audience > 30) {
+          result += 1000 * (this.#performance.audience - 30);
+        }
+        break;
+      case "comedy":
+        result = 30000;
+        if (this.#performance.audience > 20) {
+          result += 10000 + 500 * (this.#performance.audience - 20);
+        }
+        result += 300 * this.#performance.audience;
+        break;
+      default:
+        throw new Error(`unknown type: ${this.#play.type}`);
+    }
+    return result;
+  }
 }
 
 export const createStatementData = (invoice: Invoice, plays: Plays) => {
@@ -24,35 +46,13 @@ export const createStatementData = (invoice: Invoice, plays: Plays) => {
     );
     const result = Object.assign({}, performance);
     result.play = calculator.play;
-    result.amount = amountFor(result);
+    result.amount = calculator.amount;
     result.volumeCredits = volumeCreditsFor(result);
     return result;
   };
 
   const playFor = (performance: Performance) => {
     return plays[performance.playid];
-  };
-
-  const amountFor = (performance: Performance) => {
-    let result = 0;
-    switch (performance.play.type) {
-      case "tragedy":
-        result = 40000;
-        if (performance.audience > 30) {
-          result += 1000 * (performance.audience - 30);
-        }
-        break;
-      case "comedy":
-        result = 30000;
-        if (performance.audience > 20) {
-          result += 10000 + 500 * (performance.audience - 20);
-        }
-        result += 300 * performance.audience;
-        break;
-      default:
-        throw new Error(`unknown type: ${performance.play.type}`);
-    }
-    return result;
   };
 
   const volumeCreditsFor = (performance: Performance) => {
