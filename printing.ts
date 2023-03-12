@@ -7,7 +7,12 @@ type StatementData = {
 export const statement = (invoice: Invoice, plays: Plays) => {
   const enrichPerformance = (performance: Performance) => {
     const result = Object.assign({}, performance);
+    result.play = playFor(result);
     return result;
+  };
+
+  const playFor = (performance: Performance) => {
+    return plays[performance.playid];
   };
 
   const statementData: StatementData = {
@@ -20,7 +25,7 @@ export const statement = (invoice: Invoice, plays: Plays) => {
 const renderPlainText = (data: StatementData, plays: Plays) => {
   const amountFor = (performance: Performance) => {
     let result = 0;
-    switch (playFor(performance).type) {
+    switch (performance.play.type) {
       case "tragedy":
         result = 40000;
         if (performance.audience > 30) {
@@ -35,19 +40,15 @@ const renderPlainText = (data: StatementData, plays: Plays) => {
         result += 300 * performance.audience;
         break;
       default:
-        throw new Error(`unknown type: ${playFor(performance).type}`);
+        throw new Error(`unknown type: ${performance.play.type}`);
     }
     return result;
-  };
-
-  const playFor = (performance: Performance) => {
-    return plays[performance.playid];
   };
 
   const volumeCreditsFor = (performance: Performance) => {
     let result = 0;
     result += Math.max(performance.audience - 30, 0);
-    if ("comedy" === playFor(performance).type) {
+    if ("comedy" === performance.play.type) {
       result += Math.floor(performance.audience / 5);
     }
     return result;
@@ -79,7 +80,7 @@ const renderPlainText = (data: StatementData, plays: Plays) => {
 
   let result = `Statement for ${data.customer}\n`;
   for (const perf of data.performances) {
-    result += `${playFor(perf).name}: ${usd(amountFor(perf))} (${
+    result += `${perf.play.name}: ${usd(amountFor(perf))} (${
       perf.audience
     } seats)\n`;
   }
