@@ -10,4 +10,5 @@ export type Performance = {
   audience: number;
   play: PlayPerformance;
   amount: number;
+  volumeCredits: number;
 };

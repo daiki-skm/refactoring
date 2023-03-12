@@ -9,6 +9,7 @@ export const statement = (invoice: Invoice, plays: Plays) => {
     const result = Object.assign({}, performance);
     result.play = playFor(result);
     result.amount = amountFor(result);
+    result.volumeCredits = volumeCreditsFor(result);
     return result;
   };
 
@@ -38,14 +39,6 @@ export const statement = (invoice: Invoice, plays: Plays) => {
     return result;
   };
 
-  const statementData: StatementData = {
-    customer: invoice.customer,
-    performances: invoice.performances.map(enrichPerformance),
-  };
-  return renderPlainText(statementData);
-};
-
-const renderPlainText = (data: StatementData) => {
   const volumeCreditsFor = (performance: Performance) => {
     let result = 0;
     result += Math.max(performance.audience - 30, 0);
@@ -55,6 +48,14 @@ const renderPlainText = (data: StatementData) => {
     return result;
   };
 
+  const statementData: StatementData = {
+    customer: invoice.customer,
+    performances: invoice.performances.map(enrichPerformance),
+  };
+  return renderPlainText(statementData);
+};
+
+const renderPlainText = (data: StatementData) => {
   const usd = (number: number) => {
     return new Intl.NumberFormat("en-US", {
       style: "currency",
@@ -66,7 +67,7 @@ const renderPlainText = (data: StatementData) => {
   const totalVolumeCredits = () => {
     let result = 0;
     for (const perf of data.performances) {
-      result += volumeCreditsFor(perf);
+      result += perf.volumeCredits;
     }
     return result;
   };
