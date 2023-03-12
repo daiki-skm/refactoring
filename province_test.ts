@@ -1,3 +1,5 @@
 import { assertEquals } from "std/testing/asserts.ts";
 
-assertEquals(2, 2);
+Deno.test("test", () => {
+  assertEquals(2, 2);
+});
