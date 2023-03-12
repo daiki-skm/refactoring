@@ -2,6 +2,10 @@ import type { Invoice, Performance } from "./types/invoice.ts";
 import type { Plays } from "./types/plays.ts";
 
 export const statement = (invoice: Invoice, plays: Plays) => {
+  return renderPlainText(invoice, plays);
+};
+
+const renderPlainText = (invoice: Invoice, plays: Plays) => {
   const amountFor = (performance: Performance) => {
     let result = 0;
     switch (playFor(performance).type) {
