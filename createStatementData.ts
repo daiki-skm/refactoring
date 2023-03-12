@@ -47,9 +47,16 @@ class PerformanceCalculator {
   }
 }
 
+const createPerformanceCalculator = (
+  performance: Performance,
+  play: PlayPerformance
+) => {
+  return new PerformanceCalculator(performance, play);
+};
+
 export const createStatementData = (invoice: Invoice, plays: Plays) => {
   const enrichPerformance = (performance: Performance) => {
-    const calculator = new PerformanceCalculator(
+    const calculator = createPerformanceCalculator(
       performance,
       playFor(performance)
     );
