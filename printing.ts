@@ -5,9 +5,14 @@ type StatementData = {
 };
 
 export const statement = (invoice: Invoice, plays: Plays) => {
+  const enrichPerformance = (performance: Performance) => {
+    const result = Object.assign({}, performance);
+    return result;
+  };
+
   const statementData: StatementData = {
     customer: invoice.customer,
-    performances: invoice.performances,
+    performances: invoice.performances.map(enrichPerformance),
   };
   return renderPlainText(statementData, plays);
 };
