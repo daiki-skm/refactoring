@@ -9,4 +9,5 @@ export type Performance = {
   playid: string;
   audience: number;
   play: PlayPerformance;
+  amount: number;
 };

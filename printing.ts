@@ -8,6 +8,7 @@ export const statement = (invoice: Invoice, plays: Plays) => {
   const enrichPerformance = (performance: Performance) => {
     const result = Object.assign({}, performance);
     result.play = playFor(result);
+    result.amount = amountFor(result);
     return result;
   };
 
@@ -15,14 +16,6 @@ export const statement = (invoice: Invoice, plays: Plays) => {
     return plays[performance.playid];
   };
 
-  const statementData: StatementData = {
-    customer: invoice.customer,
-    performances: invoice.performances.map(enrichPerformance),
-  };
-  return renderPlainText(statementData);
-};
-
-const renderPlainText = (data: StatementData) => {
   const amountFor = (performance: Performance) => {
     let result = 0;
     switch (performance.play.type) {
@@ -45,6 +38,14 @@ const renderPlainText = (data: StatementData) => {
     return result;
   };
 
+  const statementData: StatementData = {
+    customer: invoice.customer,
+    performances: invoice.performances.map(enrichPerformance),
+  };
+  return renderPlainText(statementData);
+};
+
+const renderPlainText = (data: StatementData) => {
   const volumeCreditsFor = (performance: Performance) => {
     let result = 0;
     result += Math.max(performance.audience - 30, 0);
@@ -73,14 +74,14 @@ const renderPlainText = (data: StatementData) => {
   const totalAmount = () => {
     let result = 0;
     for (const perf of data.performances) {
-      result += amountFor(perf);
+      result += perf.amount;
     }
     return result;
   };
 
   let result = `Statement for ${data.customer}\n`;
   for (const perf of data.performances) {
-    result += `${perf.play.name}: ${usd(amountFor(perf))} (${
+    result += `${perf.play.name}: ${usd(perf.amount)} (${
       perf.audience
     } seats)\n`;
   }
