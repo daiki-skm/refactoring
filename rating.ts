@@ -16,3 +16,9 @@ const price = (order) => {
   const shipping = Math.min(basePrice * 0.1, 100);
   return basePrice - quantityDiscount + shipping;
 };
+
+const inNewEngland = (aCustomer) => {
+  return ["MA", "CT", "ME", "VT", "NH", "RI"].includes(aCustomer.address.state);
+};
+
+const newEnglanders = someCustomers.filter((c) => inNewEngland(c));
