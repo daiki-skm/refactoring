@@ -19,6 +19,10 @@ const price = (order) => {
 
 const inNewEngland = (aCustomer) => {
   const stateCode = aCustomer.address.state;
+  return xxNEWinNewEngland(stateCode);
+};
+
+const xxNEWinNewEngland = (stateCode) => {
   return ["MA", "CT", "ME", "VT", "NH", "RI"].includes(stateCode);
 };
 
