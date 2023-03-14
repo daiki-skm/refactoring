@@ -1,4 +1,10 @@
 const printOwing = (invoice) => {
+  const printDetails = () => {
+    console.log(invoice.customer);
+    console.log(outstanding);
+    console.log(invoice.dueDate.toLocaleDateString());
+  };
+
   let outstanding = 0;
 
   printBanner();
@@ -14,9 +20,7 @@ const printOwing = (invoice) => {
     today.getDate() * 30
   );
 
-  console.log(invoice.customer);
-  console.log(outstanding);
-  console.log(invoice.dueDate.toLocaleDateString());
+  printDetails();
 };
 
 const printBanner = () => {
