@@ -31,3 +31,11 @@ const recordDueDate = (invoice) => {
     today.getDate() * 30
   );
 };
+
+const calculateOutstanding = (invoice) => {
+  let outstanding = 0;
+  for (const o of invoice.orders) {
+    outstanding += o.amount;
+  }
+  return outstanding;
+};
