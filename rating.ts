@@ -17,8 +17,8 @@ const price = (order) => {
   return basePrice - quantityDiscount + shipping;
 };
 
-const inNewEngland = (aCustomer) => {
-  return xxNEWinNewEngland(aCustomer.address.state);
+const inNewEngland = (stateCode) => {
+  return xxNEWinNewEngland(stateCode);
 };
 
 const xxNEWinNewEngland = (stateCode) => {
@@ -26,5 +26,5 @@ const xxNEWinNewEngland = (stateCode) => {
 };
 
 const newEnglanders = someCustomers.filter((c) =>
-  xxNEWinNewEngland(c.address.state)
+  inNewEngland(c.address.state)
 );
