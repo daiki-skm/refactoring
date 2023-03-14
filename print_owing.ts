@@ -1,8 +1,7 @@
 const printOwing = (invoice) => {
-  let outstanding = 0;
-
   printBanner();
 
+  let outstanding = 0;
   for (const o of invoice.orders) {
     outstanding += o.amount;
   }
