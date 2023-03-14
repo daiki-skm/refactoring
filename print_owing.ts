@@ -1,13 +1,7 @@
 const printOwing = (invoice) => {
   printBanner();
-
-  let outstanding = 0;
-  for (const o of invoice.orders) {
-    outstanding += o.amount;
-  }
-
+  const outstanding = calculateOutstanding(invoice);
   recordDueDate(invoice);
-
   printDetails(invoice, outstanding);
 };
 
