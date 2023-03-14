@@ -18,8 +18,7 @@ const price = (order) => {
 };
 
 const inNewEngland = (aCustomer) => {
-  const stateCode = aCustomer.address.state;
-  return xxNEWinNewEngland(stateCode);
+  return xxNEWinNewEngland(aCustomer.address.state);
 };
 
 const xxNEWinNewEngland = (stateCode) => {
