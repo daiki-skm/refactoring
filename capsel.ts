@@ -39,10 +39,7 @@ let reading = { customer: "test", quantity: 10, month: 2, year: 2002 };
 const rawReading = acquireReading();
 const aReading = new Reading(rawReading);
 const baseCharge = aReading.baseCharge;
-const taxableCharge = Math.max(
-  0,
-  aReading.baseCharge - taxThreshold(aReading.year)
-);
+const taxableCharge = aReading.taxableCharge;
 
 class Reading {
   constructor(data) {
@@ -65,5 +62,8 @@ class Reading {
   }
   get baseCharge() {
     return baseRate(this.month - this.year) * this.quantity;
+  }
+  get taxableCharge() {
+    return Math.max(0, this.baseCharge - taxThreshold(this.year));
   }
 }
