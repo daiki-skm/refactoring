@@ -37,5 +37,7 @@ function readingsOutsideRange(station, min, max) {
 
 let reading = { customer: "test", quantity: 10, month: 2, year: 2002 };
 const aReading = acquireReading();
-const baseCharge = baseRate(aReading.month, aReading.year) * aReading.quantity;
-const taxableCharge = Math.max(0, base - taxThreshold(aReading.year));
+const baseChargeAmount = calculateBaseCharge(aReading);
+function calculateBaseCharge(aReading) {
+  return baseRate(aReading.month, aReading.year) * aReading.quantity;
+}
