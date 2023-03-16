@@ -41,3 +41,24 @@ const baseChargeAmount = calculateBaseCharge(aReading);
 function calculateBaseCharge(aReading) {
   return baseRate(aReading.month, aReading.year) * aReading.quantity;
 }
+
+class Reading {
+  constructor(data) {
+    this.customer = data.customer;
+    this.quantity = data.quantity;
+    this.month = data.month;
+    this.year = data.year;
+  }
+  get customer() {
+    return this.customer;
+  }
+  get quantity() {
+    return this.quantity;
+  }
+  get month() {
+    return this.month;
+  }
+  get year() {
+    return this.year;
+  }
+}
