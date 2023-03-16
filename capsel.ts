@@ -3,7 +3,7 @@ spaceship.owner = defaultOwner;
 setDefaultOwner({ firstName: "test", lastName: "test" });
 
 function defaultOwner() {
-  return defaultOwnerData;
+  return Object.assign({}, defaultOwnerData);
 }
 
 function setDefaultOwner(arg) {
