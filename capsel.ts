@@ -1,8 +1,8 @@
 let defaultOwnerData = { firstName: "Martin", lastName: "Fowler" };
-spaceship.owner = getdefaultOwner;
+spaceship.owner = defaultOwner;
 setDefaultOwner({ firstName: "test", lastName: "test" });
 
-function getdefaultOwner() {
+function defaultOwner() {
   return defaultOwnerData;
 }
 
