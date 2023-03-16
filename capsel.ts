@@ -36,7 +36,8 @@ function readingsOutsideRange(station, min, max) {
 }
 
 let reading = { customer: "test", quantity: 10, month: 2, year: 2002 };
-const aReading = acquireReading();
+const rawReading = acquireReading();
+const aReading = new Reading(rawReading);
 const baseChargeAmount = calculateBaseCharge(aReading);
 function calculateBaseCharge(aReading) {
   return baseRate(aReading.month, aReading.year) * aReading.quantity;
