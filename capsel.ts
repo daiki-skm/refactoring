@@ -22,3 +22,15 @@ class Person {
     return this._firstName;
   }
 }
+
+const station = {
+  name: "test",
+  readings: [
+    { temp: 43, time: "2022-11-11 10:10" },
+    { temp: 43, time: "2022-11-11 10:10" },
+  ],
+};
+
+function readingsOutsideRange(station, min, max) {
+  return station.readings.filter((r) => r.temp < min || r.temp > max);
+}
